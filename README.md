@@ -220,14 +220,68 @@ GitHub：在线托管 Git 仓库的网站
 
 **Fork 是把别人的仓库复制一份到你的账号下。**
 
-常见用途：
+一句话理解：
 
-- 你想修改别人的开源项目。
-- 你想基于别人的项目做自己的版本。
-- 你想给原项目提交改进。
+```text
+别人的仓库 -> Fork -> 你的 GitHub 账号下出现一个副本
+```
+
+#### Fork 为什么要这样操作？
+
+因为你通常不能直接修改别人的仓库。Fork 的作用是先复制一份到你自己的账号下，你可以在自己的副本里随便改，不会影响原作者的项目。
+
+Fork 常见用途：
+
+- **学习代码**：把优秀项目 Fork 到自己账号下，慢慢研究。
+- **二次开发**：基于别人的项目做自己的版本。
+- **贡献开源**：修改后通过 Pull Request 请求原作者合并。
+- **保存副本**：担心原项目以后删除，可以保留一份副本。
+
+#### Fork 在哪里操作？
+
+Fork 是 **GitHub 网页端操作**，不是本地终端命令。
+
+操作步骤：
+
+1. 打开别人的 GitHub 仓库页面。
+2. 点击右上角 `Fork` 按钮。
+3. 选择你的账号作为 Owner。
+4. Repository name 可以保持原名，也可以改名。
+5. 点击 `Create fork`。
+6. 创建完成后，你会跳转到你自己账号下的新仓库。
+
+例如：
+
+```text
+原仓库：https://github.com/original-owner/demo
+Fork 后：https://github.com/your-name/demo
+```
+
+#### Fork 后通常还要做什么？
+
+如果你只是在线查看，可以停在网页端。
+
+如果你要在电脑上修改代码，还需要 **Clone 到本地**：
+
+```bash
+git clone https://github.com/你的用户名/仓库名.git
+```
+
+然后进入项目目录：
+
+```bash
+cd 仓库名
+```
+
+#### Fork、Clone、Download ZIP 的区别
+
+| 操作 | 在哪里操作 | 得到什么 | 适合什么情况 |
+| --- | --- | --- | --- |
+| Fork | GitHub 网页端 | 你账号下的远程副本 | 想改别人的项目，或想给别人提交 PR |
+| Clone | 本地终端 | 电脑上的完整 Git 仓库 | 想在本地开发、提交、同步更新 |
+| Download ZIP | GitHub 网页端 | 一个普通压缩包 | 只想看代码或拿文件，不需要 Git 历史 |
 
 Fork 之后，原仓库不会被你直接改动，你是在自己的副本里修改。
-
 ### 2.4 Clone
 
 **Clone 是把远程仓库下载到你的电脑。**
@@ -758,33 +812,397 @@ git push -u origin main
 
 ---
 
-## 7. 如何从 GitHub 下载项目？
+## 7. 如何从 GitHub 下载别人的项目和文档？
 
-### 7.1 Clone 下载完整仓库
+下载之前先想清楚：你是只想看一眼，还是要长期学习和修改？不同目的对应不同方法。
 
-```bash
-git clone https://github.com/用户名/仓库名.git
+### 7.1 三种下载方式怎么选？
+
+| 目的 | 推荐方式 | 操作位置 | 是否保留 Git 历史 | 是否方便更新 |
+| --- | --- | --- | --- | --- |
+| 只想下载整个项目看一看 | Download ZIP | GitHub 网页端 | 否 | 不方便 |
+| 想在本地运行、学习、修改 | git clone | 本地终端 | 是 | 方便 |
+| 想修改后贡献给原作者 | Fork + Clone + PR | 网页端 + 本地终端 | 是 | 方便 |
+| 只想下载某个单独文件 | Raw / Download raw file | GitHub 网页端 | 否 | 不方便 |
+| 只想看项目文档 | 直接看 README / docs | GitHub 网页端 | 不涉及 | 不涉及 |
+
+### 7.2 下载整个工程项目：Download ZIP
+
+这是最简单的方法，不需要安装 Git。
+
+**操作位置：GitHub 网页端。**
+
+步骤：
+
+1. 打开你想下载的 GitHub 仓库。
+2. 点击绿色 `Code` 按钮。
+3. 点击 `Download ZIP`。
+4. 等待浏览器下载压缩包。
+5. 解压 ZIP 文件。
+6. 打开解压后的文件夹查看或运行项目。
+
+适合：
+
+- 只想快速看代码。
+- 只想下载项目里的图片、文档、示例文件。
+- 不准备提交修改。
+
+不适合：
+
+- 想长期跟踪项目更新。
+- 想给项目提交 Pull Request。
+- 想学习 Git 提交历史。
+
+注意：ZIP 下载只是普通文件夹，没有 `.git` 历史，不能直接 `git pull` 更新。
+
+### 7.3 下载完整工程项目：git clone
+
+`git clone` 会把整个远程仓库复制到你的电脑，包括代码和 Git 提交历史。
+
+**操作位置：本地电脑终端。**
+
+步骤：
+
+1. 打开别人的 GitHub 仓库页面。
+2. 点击绿色 `Code` 按钮。
+3. 复制 HTTPS 地址，例如：
+
+```text
+https://github.com/octocat/Hello-World.git
 ```
 
-例如：
+4. 在电脑上打开 PowerShell、CMD、Git Bash 或 VS Code 终端。
+5. 进入你想保存项目的目录，例如：
+
+```powershell
+cd D:\projects
+```
+
+6. 执行 clone：
 
 ```bash
 git clone https://github.com/octocat/Hello-World.git
 ```
 
-### 7.2 下载 ZIP
+7. 进入项目：
 
-如果你不想用 Git：
+```bash
+cd Hello-World
+```
+
+8. 查看文件：
+
+```bash
+dir        # Windows PowerShell/CMD
+ls         # Git Bash / macOS / Linux
+```
+
+适合：
+
+- 想在本地运行别人的项目。
+- 想学习项目完整结构。
+- 想以后用 `git pull` 拉取更新。
+- 想查看提交历史。
+
+更新别人项目的最新代码：
+
+```bash
+git pull
+```
+
+### 7.4 下载别人的文档
+
+GitHub 项目文档常见位置：
+
+```text
+README.md              # 仓库首页说明
+docs/                  # 文档目录
+wiki                   # GitHub Wiki 页面
+examples/              # 示例代码和示例文档
+CHANGELOG.md           # 更新日志
+CONTRIBUTING.md        # 贡献指南
+```
+
+#### 方法一：直接在网页端看文档
+
+**操作位置：GitHub 网页端。**
+
+步骤：
 
 1. 打开仓库页面。
-2. 点击绿色 `Code` 按钮。
-3. 点击 `Download ZIP`。
-4. 解压使用。
+2. 先看首页自动显示的 `README.md`。
+3. 如果有 `docs` 文件夹，点击进入。
+4. 如果页面上方有 `Wiki`，点击查看 Wiki 文档。
+5. 如果 README 里有目录链接，点击跳转到对应文档。
 
-注意：ZIP 下载没有 Git 提交历史，不方便后续同步更新。
+适合：只想阅读，不需要保存到电脑。
+
+#### 方法二：下载单个文档文件
+
+**操作位置：GitHub 网页端。**
+
+步骤：
+
+1. 打开某个 `.md`、`.txt`、`.pdf` 或代码文件。
+2. 点击右上角的 `Raw` 或下载按钮。
+3. 浏览器打开原始文件后，右键选择另存为。
+
+适合：只想保存某一个文档。
+
+#### 方法三：下载整个仓库里的全部文档
+
+**操作位置：网页端或本地终端。**
+
+如果不懂 Git，用 ZIP：
+
+```text
+Code -> Download ZIP -> 解压 -> 找 README.md 或 docs 文件夹
+```
+
+如果会 Git，用 clone：
+
+```bash
+git clone https://github.com/用户名/仓库名.git
+```
+
+然后在本地打开：
+
+```text
+README.md
+docs/
+```
+
+### 7.5 Fork 别人项目并修改贡献
+
+这是参与开源项目最常见的流程。
+
+#### 第一步：Fork 原项目
+
+**操作位置：GitHub 网页端。**
+
+1. 打开原项目仓库。
+2. 点击右上角 `Fork`。
+3. 选择你的账号。
+4. 点击 `Create fork`。
+
+为什么要做这一步：你没有权限直接改原作者仓库，所以先复制一份到你账号下。
+
+#### 第二步：Clone 你自己的 Fork
+
+**操作位置：本地电脑终端。**
+
+注意：这里 clone 的是你自己的 Fork，不是原作者仓库。
+
+```bash
+git clone https://github.com/你的用户名/仓库名.git
+cd 仓库名
+```
+
+#### 第三步：新建分支再修改
+
+**操作位置：本地电脑终端。**
+
+```bash
+git switch -c fix-typo
+```
+
+为什么要新建分支：不要直接在 `main` 上乱改，分支能让一次修改更清晰，也方便提交 PR。
+
+#### 第四步：修改文件并提交
+
+**操作位置：本地电脑终端 + 代码编辑器。**
+
+```bash
+git status
+git add .
+git commit -m "Fix typo in README"
+```
+
+#### 第五步：推送你的分支
+
+**操作位置：本地电脑终端。**
+
+```bash
+git push -u origin fix-typo
+```
+
+#### 第六步：创建 Pull Request
+
+**操作位置：GitHub 网页端。**
+
+1. 打开你 Fork 后的仓库页面。
+2. GitHub 通常会提示 `Compare & pull request`。
+3. 点击它。
+4. 确认方向是：
+
+```text
+你的分支 -> 原作者仓库的 main 分支
+```
+
+5. 写清楚你改了什么、为什么改。
+6. 点击 `Create pull request`。
+
+#### 第七步：等待作者审查
+
+**操作位置：GitHub 网页端。**
+
+作者可能会：
+
+- 直接合并你的 PR。
+- 评论让你继续修改。
+- 关闭 PR。
+- 暂时不处理。
+
+如果作者让你修改，你继续在本地改，然后：
+
+```bash
+git add .
+git commit -m "Update according to review"
+git push
+```
+
+PR 页面会自动更新。
+
+### 7.6 Fork 后如何同步原项目更新？
+
+如果原作者项目更新了，你的 Fork 可能会落后。
+
+#### 简单方法：网页端同步
+
+**操作位置：GitHub 网页端。**
+
+1. 打开你 Fork 后的仓库。
+2. 如果看到 `Sync fork`，点击它。
+3. 点击 `Update branch`。
+
+#### 进阶方法：终端同步
+
+**操作位置：本地电脑终端。**
+
+第一次添加原仓库地址：
+
+```bash
+git remote add upstream https://github.com/原作者用户名/原仓库名.git
+```
+
+查看远程地址：
+
+```bash
+git remote -v
+```
+
+同步原仓库更新：
+
+```bash
+git switch main
+git fetch upstream
+git merge upstream/main
+git push origin main
+```
+
+这里的含义：
+
+- `origin`：你自己 Fork 的仓库。
+- `upstream`：原作者的仓库。
+- `fetch upstream`：把原作者更新拉下来。
+- `merge upstream/main`：合并到你的本地 main。
+- `push origin main`：推回你自己的 GitHub Fork。
 
 ---
+## 7.7 哪些在网页端操作？哪些在本地终端操作？
 
+这是新手最容易混的地方。记住一句话：
+
+```text
+GitHub 网页端负责：创建、查看、讨论、合并
+本地电脑终端负责：下载、修改、提交、推送
+```
+
+### 网页端操作清单
+
+这些操作一般在浏览器里的 GitHub 网站完成：
+
+| 操作 | 在哪里点 | 为什么在网页端做 |
+| --- | --- | --- |
+| 注册/登录账号 | github.com | 账号属于 GitHub 网站 |
+| 搜索项目 | 顶部搜索框 | GitHub 收录了所有公开仓库 |
+| Star 收藏项目 | 仓库右上角 Star | 这是 GitHub 账号行为 |
+| Fork 别人项目 | 仓库右上角 Fork | 复制远程仓库到你的账号下 |
+| 新建仓库 | 右上角 `+` 或左侧 `New` | 远程仓库创建在 GitHub 服务器上 |
+| 查看 README | 仓库首页 | GitHub 自动渲染 Markdown |
+| 提 Issue | `Issues` 标签页 | 问题讨论发生在项目页面 |
+| 创建 Pull Request | `Pull requests` 标签页 | 请求合并代码需要在 GitHub 上审查 |
+| 合并 Pull Request | PR 页面 `Merge` 按钮 | 合并远程分支由 GitHub 执行 |
+| 下载 ZIP | `Code -> Download ZIP` | 浏览器直接下载压缩包 |
+| 同步 Fork | `Sync fork` | GitHub 可以在线同步原仓库更新 |
+
+### 本地终端操作清单
+
+这些操作一般在你电脑上的 PowerShell、CMD、Git Bash 或 VS Code 终端里完成：
+
+| 命令 | 在哪里执行 | 作用 |
+| --- | --- | --- |
+| `git config` | 本地终端 | 配置你的 Git 用户名和邮箱 |
+| `git clone` | 本地终端 | 把 GitHub 仓库下载到电脑 |
+| `cd 项目目录` | 本地终端 | 进入项目文件夹 |
+| `git init` | 本地终端 | 把普通文件夹变成 Git 仓库 |
+| `git status` | 本地终端 | 查看哪些文件被修改 |
+| `git diff` | 本地终端 | 查看文件具体改了什么 |
+| `git add .` | 本地终端 | 把修改加入暂存区 |
+| `git commit -m "说明"` | 本地终端 | 保存一个本地版本 |
+| `git remote add origin 地址` | 本地终端 | 关联 GitHub 远程仓库 |
+| `git push` | 本地终端 | 把本地提交上传到 GitHub |
+| `git pull` | 本地终端 | 把 GitHub 最新内容拉到本地 |
+| `git switch -c 分支名` | 本地终端 | 新建并切换分支 |
+| `git merge 分支名` | 本地终端 | 合并本地分支 |
+
+### 最常见的混合流程
+
+很多 GitHub 操作是“网页端 + 本地终端”配合完成的。
+
+#### 上传自己的新项目
+
+```text
+网页端：New repository 创建空仓库
+本地终端：git init -> git add -> git commit -> git remote -> git push
+网页端：刷新仓库页面，检查代码是否上传成功
+```
+
+#### 下载并运行别人的项目
+
+```text
+网页端：打开仓库，复制 Code 里的 HTTPS 地址
+本地终端：git clone 地址
+本地终端：进入项目并按照 README 安装运行
+```
+
+#### 给别人项目贡献代码
+
+```text
+网页端：Fork 原项目
+本地终端：git clone 你的 Fork
+本地终端：新建分支、修改、commit、push
+网页端：创建 Pull Request
+网页端：根据作者反馈继续修改或等待合并
+```
+
+#### 只下载文档
+
+```text
+网页端：直接看 README 或 docs
+网页端：需要保存时点击 Raw 后另存为
+网页端：需要全部文档时 Download ZIP
+```
+
+### 判断一个操作在哪里做的小技巧
+
+- 要点按钮、看页面、写评论、创建 PR：通常在 **GitHub 网页端**。
+- 要操作电脑里的文件、提交版本、上传下载代码：通常在 **本地终端**。
+- 要写代码或改文档：通常在 **代码编辑器**，比如 VS Code。
+- 要把本地改动同步到 GitHub：最后一定会用到 **`git push`**。
+- 要把 GitHub 上的新内容同步到本地：通常用 **`git pull`**。
+
+---
 ## 8. Git 常用指令大全
 
 ### 8.1 基础配置
