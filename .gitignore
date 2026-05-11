@@ -1,0 +1,10 @@
+﻿# 不上传的文件
+.env
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+build/
+.vscode/
+.idea/
